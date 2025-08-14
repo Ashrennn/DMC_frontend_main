@@ -1,0 +1,132 @@
+<div class="newsletter-container">
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>article</mat-icon>
+      </div>
+      <h1 class="page-title">{{ getPageTitle() }}</h1>
+      <p class="page-subtitle">{{ getPageSubtitle() }}</p>
+    </div>
+  </section>
+
+  <!-- Featured Newsletters Section -->
+  <section class="featured-section" *ngIf="getFeaturedNewsletters().length > 0">
+    <div class="featured-container">
+      <h2 class="section-title">{{ isRTL ? 'النشرات المميزة' : 'Featured Newsletters' }}</h2>
+      <div class="featured-grid">
+        <div class="featured-card" *ngFor="let newsletter of getFeaturedNewsletters()">
+          <div class="featured-image">
+            <img [src]="newsletter.image" [alt]="getNewsletterTitle(newsletter)" />
+            <div class="featured-overlay">
+              <div class="featured-badge">
+                <mat-icon>star</mat-icon>
+                <span>{{ isRTL ? 'مميز' : 'Featured' }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="featured-content">
+            <div class="newsletter-meta">
+              <span class="category-tag" [style.background-color]="getCategoryColor(newsletter.category.en)">
+                {{ getNewsletterCategory(newsletter) }}
+              </span>
+              <span class="read-time">{{ newsletter.readTime }}</span>
+            </div>
+            <h3 class="newsletter-title">{{ getNewsletterTitle(newsletter) }}</h3>
+            <p class="newsletter-description">{{ getNewsletterDescription(newsletter) }}</p>
+            <div class="newsletter-footer">
+              <span class="newsletter-date">{{ formatDate(newsletter.date) }}</span>
+              <button class="read-more-btn">
+                <mat-icon>arrow_forward</mat-icon>
+                <span>{{ isRTL ? 'اقرأ المزيد' : 'Read More' }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filters -->
+  <section class="filters-section">
+    <div class="filters-container">
+      <h3 class="filters-title">{{ isRTL ? 'تصفية حسب الفئة' : 'Filter by Category' }}</h3>
+      <div class="category-filters">
+        <button
+          class="category-filter"
+          *ngFor="let category of categories"
+          [class.active]="selectedCategory === getCategoryName(category)"
+          (click)="selectCategory(getCategoryName(category))"
+          [style.border-color]="category.color">
+          <mat-icon [style.color]="category.color">{{ category.icon }}</mat-icon>
+          <span class="category-name">{{ getCategoryName(category) }}</span>
+          <span class="category-count">({{ category.count }})</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Newsletter Archive -->
+  <section class="archive-section">
+    <div class="archive-container">
+      <h2 class="section-title">{{ isRTL ? 'أرشيف النشرات' : 'Newsletter Archive' }}</h2>
+      <div class="newsletter-grid">
+        <div class="newsletter-card" *ngFor="let newsletter of getFilteredNewsletters()">
+          <div class="newsletter-image">
+            <img [src]="newsletter.image" [alt]="getNewsletterTitle(newsletter)" />
+            <div class="newsletter-overlay">
+              <button class="read-btn">
+                <mat-icon>visibility</mat-icon>
+              </button>
+            </div>
+          </div>
+          <div class="newsletter-content">
+            <div class="newsletter-meta">
+              <span class="category-tag" [style.background-color]="getCategoryColor(newsletter.category.en)">
+                {{ getNewsletterCategory(newsletter) }}
+              </span>
+              <span class="read-time">{{ newsletter.readTime }}</span>
+            </div>
+            <h3 class="newsletter-title">{{ getNewsletterTitle(newsletter) }}</h3>
+            <p class="newsletter-description">{{ getNewsletterDescription(newsletter) }}</p>
+            <div class="newsletter-tags">
+              <span class="tag" *ngFor="let tag of newsletter.tags">{{ tag }}</span>
+            </div>
+            <div class="newsletter-footer">
+              <span class="newsletter-date">{{ formatDate(newsletter.date) }}</span>
+              <button class="read-more-btn">
+                <mat-icon>arrow_forward</mat-icon>
+                <span>{{ isRTL ? 'اقرأ المزيد' : 'Read More' }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subscription Section -->
+  <section class="subscription-section">
+    <div class="subscription-container">
+      <div class="subscription-content">
+        <h2 class="subscription-title">{{ isRTL ? 'اشترك في نشرتنا الإخبارية' : 'Subscribe to Our Newsletter' }}</h2>
+        <p class="subscription-description">
+          {{ isRTL
+            ? 'احصل على آخر الأخبار والتحديثات مباشرة في بريدك الإلكتروني'
+            : 'Get the latest news and updates delivered directly to your inbox'
+          }}
+        </p>
+        <div class="subscription-form">
+          <input
+            type="email"
+            placeholder="{{ isRTL ? 'أدخل بريدك الإلكتروني' : 'Enter your email' }}"
+            class="email-input" />
+          <button class="subscribe-btn">
+            <mat-icon>send</mat-icon>
+            <span>{{ isRTL ? 'اشتراك' : 'Subscribe' }}</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

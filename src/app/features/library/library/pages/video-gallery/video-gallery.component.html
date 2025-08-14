@@ -1,0 +1,169 @@
+<div class="video-gallery-container">
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>video_collection</mat-icon>
+      </div>
+      <h1 class="page-title">{{ isRTL ? 'معرض الفيديو' : 'Video Gallery' }}</h1>
+      <p class="page-subtitle">
+        {{ isRTL
+          ? 'شاهد مقاطع الفيديو والعروض التقديمية والتدريبات'
+          : 'Watch videos, presentations, and training materials'
+        }}
+      </p>
+    </div>
+  </section>
+
+  <!-- Search and Filter Section -->
+  <section class="controls-section">
+    <div class="controls-container">
+      <div class="search-box">
+        <mat-icon>search</mat-icon>
+        <input
+          type="text"
+          [placeholder]="isRTL ? 'البحث في الفيديوهات...' : 'Search videos...'"
+          [(ngModel)]="searchQuery"
+          (input)="onSearchChange($event)"
+          class="search-input" />
+      </div>
+
+      <div class="sort-controls">
+        <label class="sort-label">{{ isRTL ? 'ترتيب حسب:' : 'Sort by:' }}</label>
+        <select
+          [(ngModel)]="sortBy"
+          (change)="onSortChange($event)"
+          class="sort-select">
+          <option value="newest">{{ isRTL ? 'الأحدث' : 'Newest' }}</option>
+          <option value="oldest">{{ isRTL ? 'الأقدم' : 'Oldest' }}</option>
+          <option value="most-viewed">{{ isRTL ? 'الأكثر مشاهدة' : 'Most Viewed' }}</option>
+          <option value="longest">{{ isRTL ? 'الأطول' : 'Longest' }}</option>
+          <option value="shortest">{{ isRTL ? 'الأقصر' : 'Shortest' }}</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filters -->
+  <section class="filters-section">
+    <div class="filters-container">
+      <h3 class="filters-title">{{ isRTL ? 'تصفية حسب الفئة' : 'Filter by Category' }}</h3>
+      <div class="category-filters">
+        <button
+          class="category-filter"
+          *ngFor="let category of categories"
+          [class.active]="selectedCategory === getCategoryName(category)"
+          (click)="selectCategory(getCategoryName(category))"
+          [style.border-color]="category.color">
+          <mat-icon [style.color]="category.color">{{ category.icon }}</mat-icon>
+          <span class="category-name">{{ getCategoryName(category) }}</span>
+          <span class="category-count">({{ category.count }})</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Videos Section -->
+  <section class="featured-section" *ngIf="getFeaturedVideos().length > 0">
+    <div class="featured-container">
+      <h2 class="section-title">{{ isRTL ? 'الفيديوهات المميزة' : 'Featured Videos' }}</h2>
+      <div class="featured-grid">
+        <div class="featured-video-card" *ngFor="let video of getFeaturedVideos()">
+          <div class="video-thumbnail" (click)="playVideo(video)">
+            <img [src]="video.thumbnail" [alt]="getVideoTitle(video)" />
+            <div class="video-overlay">
+              <div class="play-button">
+                <mat-icon>play_circle</mat-icon>
+              </div>
+              <div class="video-duration">{{ video.duration }}</div>
+              <div class="featured-badge">
+                <mat-icon>star</mat-icon>
+                <span>{{ isRTL ? 'مميز' : 'Featured' }}</span>
+              </div>
+            </div>
+          </div>
+          <div class="video-content">
+            <div class="video-meta">
+              <span class="category-tag" [style.background-color]="getCategoryColor(video.category.en)">
+                {{ getVideoCategory(video) }}
+              </span>
+              <span class="upload-date">{{ formatDate(video.uploadDate) }}</span>
+            </div>
+            <h3 class="video-title">{{ getVideoTitle(video) }}</h3>
+            <p class="video-description">{{ getVideoDescription(video) }}</p>
+            <div class="video-stats">
+              <span class="views-count">
+                <mat-icon>visibility</mat-icon>
+                {{ formatViews(video.views) }} {{ isRTL ? 'مشاهدة' : 'views' }}
+              </span>
+              <span class="duration">
+                <mat-icon>schedule</mat-icon>
+                {{ video.duration }}
+              </span>
+            </div>
+            <div class="video-tags">
+              <span class="tag" *ngFor="let tag of video.tags">{{ tag }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Video Grid -->
+  <section class="videos-section">
+    <div class="videos-container">
+      <h2 class="section-title">{{ isRTL ? 'جميع الفيديوهات' : 'All Videos' }}</h2>
+      <div class="videos-grid">
+        <div class="video-card" *ngFor="let video of getFilteredVideos()">
+          <div class="video-thumbnail" (click)="playVideo(video)">
+            <img [src]="video.thumbnail" [alt]="getVideoTitle(video)" />
+            <div class="video-overlay">
+              <div class="play-button">
+                <mat-icon>play_circle</mat-icon>
+              </div>
+              <div class="video-duration">{{ video.duration }}</div>
+            </div>
+          </div>
+          <div class="video-content">
+            <div class="video-meta">
+              <span class="category-tag" [style.background-color]="getCategoryColor(video.category.en)">
+                {{ getVideoCategory(video) }}
+              </span>
+              <span class="upload-date">{{ formatDate(video.uploadDate) }}</span>
+            </div>
+            <h3 class="video-title">{{ getVideoTitle(video) }}</h3>
+            <p class="video-description">{{ getVideoDescription(video) }}</p>
+            <div class="video-stats">
+              <span class="views-count">
+                <mat-icon>visibility</mat-icon>
+                {{ formatViews(video.views) }} {{ isRTL ? 'مشاهدة' : 'views' }}
+              </span>
+              <span class="duration">
+                <mat-icon>schedule</mat-icon>
+                {{ video.duration }}
+              </span>
+            </div>
+            <div class="video-tags">
+              <span class="tag" *ngFor="let tag of video.tags">{{ tag }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results Message -->
+      <div class="no-results" *ngIf="getFilteredVideos().length === 0">
+        <mat-icon>video_library</mat-icon>
+        <h3>{{ isRTL ? 'لا توجد نتائج' : 'No Results Found' }}</h3>
+        <p>
+          {{ isRTL
+            ? 'جرب تغيير معايير البحث أو الفئة المحددة'
+            : 'Try changing your search criteria or selected category'
+          }}
+        </p>
+      </div>
+    </div>
+  </section>
+</div>
+
+

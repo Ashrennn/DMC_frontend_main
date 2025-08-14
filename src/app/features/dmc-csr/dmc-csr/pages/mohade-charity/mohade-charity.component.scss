@@ -1,0 +1,746 @@
+.mohade-charity-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+
+  &.rtl {
+    direction: rtl;
+    text-align: right;
+  }
+}
+
+/* Page Header */
+.page-header {
+  text-align: center;
+  margin-bottom: 3rem;
+
+  .header-content {
+    .header-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 80px;
+      height: 80px;
+      background: linear-gradient(135deg, #dc2626, #ef4444);
+      border-radius: 50%;
+      margin-bottom: 1.5rem;
+
+      mat-icon {
+        font-size: 2.5rem;
+        width: 2.5rem;
+        height: 2.5rem;
+        color: white;
+      }
+    }
+
+    .page-title {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #dc2626;
+      margin: 0 0 1rem 0;
+    }
+
+    .page-subtitle {
+      font-size: 1.2rem;
+      color: #64748b;
+      line-height: 1.6;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+  }
+}
+
+/* Call to Action Section */
+.cta-section {
+  background: linear-gradient(135deg, #dc2626, #ef4444);
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  margin-bottom: 3rem;
+  text-align: center;
+  color: white;
+
+  .cta-container {
+    .cta-content {
+      h2 {
+        font-size: 2rem;
+        font-weight: 600;
+        margin: 0 0 1rem 0;
+      }
+
+      p {
+        font-size: 1.1rem;
+        margin: 0 0 2rem 0;
+        opacity: 0.9;
+        max-width: 500px;
+        margin: 0 auto 2rem auto;
+      }
+
+      .cta-buttons {
+        display: flex;
+        gap: 1rem;
+        justify-content: center;
+        flex-wrap: wrap;
+
+        .donate-btn,
+        .volunteer-btn {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          padding: 1rem 2rem;
+          border: none;
+          border-radius: 50px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          font-size: 1rem;
+
+          mat-icon {
+            font-size: 1.2rem;
+            width: 1.2rem;
+            height: 1.2rem;
+          }
+        }
+
+        .donate-btn {
+          background: white;
+          color: #dc2626;
+
+          &:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 255, 255, 0.3);
+          }
+        }
+
+        .volunteer-btn {
+          background: rgba(255, 255, 255, 0.2);
+          color: white;
+          border: 2px solid rgba(255, 255, 255, 0.3);
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+          }
+        }
+      }
+    }
+  }
+}
+
+/* Featured Projects Section */
+.featured-projects-section {
+  margin-bottom: 4rem;
+
+  .featured-projects-container {
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #dc2626;
+      margin: 0 0 2rem 0;
+      text-align: center;
+    }
+
+    .featured-projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+      gap: 2rem;
+    }
+  }
+}
+
+/* Project Card */
+.project-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 48px rgba(220, 38, 38, 0.15);
+  }
+
+  &.featured {
+    border: 2px solid #dc2626;
+  }
+
+  .project-image {
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .project-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(220, 38, 38, 0.8), rgba(239, 68, 68, 0.6));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+
+      .featured-badge {
+        position: absolute;
+        top: 1rem;
+        left: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.25rem;
+        background: rgba(255, 193, 7, 0.9);
+        color: #dc2626;
+        padding: 0.25rem 0.5rem;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        font-weight: 600;
+
+        mat-icon {
+          font-size: 1rem;
+          width: 1rem;
+          height: 1rem;
+        }
+      }
+
+      .status-badge {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: white;
+
+        &.status-active {
+          background: #10b981;
+        }
+
+        &.status-completed {
+          background: #3b82f6;
+        }
+
+        &.status-planned {
+          background: #f59e0b;
+        }
+      }
+    }
+
+    &:hover .project-overlay {
+      opacity: 1;
+    }
+  }
+
+  .project-content {
+    padding: 1.5rem;
+
+    .project-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+
+      .category-tag {
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        color: white;
+        font-size: 0.8rem;
+        font-weight: 500;
+        background: #dc2626;
+      }
+
+      .budget {
+        color: #64748b;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+    }
+
+    .project-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #dc2626;
+      margin: 0 0 0.75rem 0;
+      line-height: 1.4;
+    }
+
+    .project-description {
+      color: #64748b;
+      line-height: 1.6;
+      margin: 0 0 1rem 0;
+    }
+
+    .project-details {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+
+      .detail-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #64748b;
+        font-size: 0.9rem;
+
+        mat-icon {
+          font-size: 1rem;
+          width: 1rem;
+          height: 1rem;
+          color: #dc2626;
+        }
+      }
+    }
+
+    .project-progress {
+      margin-bottom: 1.5rem;
+
+      .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: #f1f5f9;
+        border-radius: 4px;
+        overflow: hidden;
+        margin-bottom: 0.5rem;
+
+        .progress-fill {
+          height: 100%;
+          background: linear-gradient(90deg, #dc2626, #ef4444);
+          border-radius: 4px;
+          transition: width 0.3s ease;
+        }
+      }
+
+      .progress-text {
+        font-size: 0.8rem;
+        color: #64748b;
+        font-weight: 500;
+      }
+    }
+
+    .project-actions {
+      display: flex;
+      gap: 1rem;
+
+      .learn-more-btn,
+      .support-btn {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        border: none;
+        border-radius: 8px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: all 0.3s ease;
+
+        mat-icon {
+          font-size: 1.1rem;
+          width: 1.1rem;
+          height: 1.1rem;
+        }
+      }
+
+      .learn-more-btn {
+        background: #f0fdf4;
+        color: #dc2626;
+        border: 2px solid #bbf7d0;
+
+        &:hover {
+          background: #bbf7d0;
+          border-color: #dc2626;
+        }
+      }
+
+      .support-btn {
+        background: linear-gradient(135deg, #dc2626, #ef4444);
+        color: white;
+
+        &:hover {
+          transform: translateY(-2px);
+          box-shadow: 0 4px 15px rgba(220, 38, 38, 0.3);
+        }
+      }
+    }
+  }
+}
+
+/* CSR Initiatives Section */
+.csr-initiatives-section {
+  margin-bottom: 4rem;
+
+  .csr-initiatives-container {
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #dc2626;
+      margin: 0 0 2rem 0;
+      text-align: center;
+    }
+
+    .initiatives-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+  }
+}
+
+/* Initiative Card */
+.initiative-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(220, 38, 38, 0.15);
+  }
+
+  .initiative-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+
+    .initiative-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      mat-icon {
+        font-size: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+        color: white;
+      }
+    }
+
+    .initiative-meta {
+      flex: 1;
+
+      .category-tag {
+        display: block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        color: white;
+        font-size: 0.8rem;
+        font-weight: 500;
+        background: #dc2626;
+        margin-bottom: 0.5rem;
+        width: fit-content;
+      }
+
+      .duration {
+        color: #64748b;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
+    }
+  }
+
+  .initiative-content {
+    .initiative-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #dc2626;
+      margin: 0 0 0.75rem 0;
+      line-height: 1.4;
+    }
+
+    .initiative-description {
+      color: #64748b;
+      line-height: 1.6;
+      margin: 0 0 1.5rem 0;
+    }
+
+    .initiative-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+
+      .stat-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: #64748b;
+        font-size: 0.9rem;
+
+        mat-icon {
+          font-size: 1rem;
+          width: 1rem;
+          height: 1rem;
+          color: #dc2626;
+        }
+      }
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 500;
+
+      mat-icon {
+        font-size: 1.1rem;
+        width: 1.1rem;
+        height: 1.1rem;
+      }
+
+      &.status-active {
+        background: #f0fdf4;
+        color: #10b981;
+      }
+
+      &.status-completed {
+        background: #eff6ff;
+        color: #3b82f6;
+      }
+
+      &.status-planned {
+        background: #fffbeb;
+        color: #f59e0b;
+      }
+    }
+  }
+}
+
+/* All Projects Section */
+.all-projects-section {
+  margin-bottom: 4rem;
+
+  .all-projects-container {
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #dc2626;
+      margin: 0 0 2rem 0;
+      text-align: center;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      gap: 2rem;
+    }
+  }
+}
+
+/* Impact Statistics Section */
+.impact-stats-section {
+  .impact-stats-container {
+    .section-title {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #dc2626;
+      margin: 0 0 2rem 0;
+      text-align: center;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+  }
+}
+
+/* Stat Card */
+.stat-card {
+  background: white;
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 20px rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.1);
+  transition: all 0.3s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(220, 38, 38, 0.15);
+  }
+
+  .stat-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, #dc2626, #ef4444);
+    border-radius: 50%;
+    margin-bottom: 1.5rem;
+
+    mat-icon {
+      font-size: 2rem;
+      width: 2rem;
+      height: 2rem;
+      color: white;
+    }
+  }
+
+  .stat-content {
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: #dc2626;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .stat-label {
+      font-size: 1rem;
+      color: #64748b;
+      margin: 0;
+      font-weight: 500;
+    }
+  }
+}
+
+/* Helper Functions */
+/* Note: getCategoryColor is implemented in the TypeScript component */
+
+/* RTL Support */
+.rtl {
+  .project-overlay .featured-badge {
+    left: auto;
+    right: 1rem;
+  }
+
+  .project-overlay .status-badge {
+    right: auto;
+    left: 1rem;
+  }
+
+  .cta-buttons {
+    flex-direction: row-reverse;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .mohade-charity-container {
+    padding: 1rem;
+  }
+
+  .cta-section {
+    padding: 2rem 1rem;
+
+    .cta-container .cta-content .cta-buttons {
+      flex-direction: column;
+      align-items: center;
+
+      .donate-btn,
+      .volunteer-btn {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  }
+
+  .featured-projects-section .featured-projects-container .featured-projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .csr-initiatives-section .csr-initiatives-container .initiatives-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .all-projects-section .all-projects-container .projects-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .impact-stats-section .impact-stats-container .stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .page-header .header-content .page-title {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .mohade-charity-container {
+    padding: 0.5rem;
+  }
+
+  .page-header .header-content {
+    .header-icon {
+      width: 60px;
+      height: 60px;
+
+      mat-icon {
+        font-size: 2rem;
+        width: 2rem;
+        height: 2rem;
+      }
+    }
+
+    .page-title {
+      font-size: 1.8rem;
+    }
+
+    .page-subtitle {
+      font-size: 1rem;
+    }
+  }
+
+  .cta-section {
+    padding: 1.5rem 1rem;
+
+    .cta-container .cta-content h2 {
+      font-size: 1.5rem;
+    }
+  }
+
+  .project-card .project-content {
+    padding: 1rem;
+  }
+
+  .initiative-card {
+    padding: 1.5rem;
+  }
+
+  .stat-card {
+    padding: 1.5rem;
+
+    .stat-icon {
+      width: 60px;
+      height: 60px;
+
+      mat-icon {
+        font-size: 1.5rem;
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+    }
+
+    .stat-content .stat-number {
+      font-size: 2rem;
+    }
+  }
+
+  .impact-stats-section .impact-stats-container .stats-grid {
+    grid-template-columns: 1fr;
+  }
+}

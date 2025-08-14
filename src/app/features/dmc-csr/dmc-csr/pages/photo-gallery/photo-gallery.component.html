@@ -1,0 +1,192 @@
+<div class="photo-gallery-container">
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>photo_library</mat-icon>
+      </div>
+      <h1 class="page-title">{{ isRTL ? 'معرض الصور' : 'Photo Gallery' }}</h1>
+      <p class="page-subtitle">
+        {{ isRTL
+          ? 'شاهد لحظاتنا المميزة ومشاريعنا الإنسانية'
+          : 'View our memorable moments and humanitarian projects'
+        }}
+      </p>
+    </div>
+  </section>
+
+  <!-- Search and Filter Section -->
+  <section class="controls-section">
+    <div class="controls-container">
+      <div class="search-box">
+        <mat-icon>search</mat-icon>
+        <input
+          type="text"
+          [placeholder]="isRTL ? 'البحث في الصور...' : 'Search photos...'"
+          [(ngModel)]="searchQuery"
+          (input)="onSearchChange($event)"
+          class="search-input" />
+      </div>
+
+      <div class="sort-controls">
+        <label class="sort-label">{{ isRTL ? 'ترتيب حسب:' : 'Sort by:' }}</label>
+        <select
+          [(ngModel)]="sortBy"
+          (change)="onSortChange($event)"
+          class="sort-select">
+          <option value="newest">{{ isRTL ? 'الأحدث' : 'Newest' }}</option>
+          <option value="oldest">{{ isRTL ? 'الأقدم' : 'Oldest' }}</option>
+          <option value="featured">{{ isRTL ? 'المميزة' : 'Featured' }}</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filters -->
+  <section class="filters-section">
+    <div class="filters-container">
+      <h3 class="filters-title">{{ isRTL ? 'تصفية حسب الفئة' : 'Filter by Category' }}</h3>
+      <div class="category-filters">
+        <button
+          class="category-filter"
+          *ngFor="let category of categories"
+          [class.active]="selectedCategory === getCategoryName(category)"
+          (click)="selectCategory(getCategoryName(category))"
+          [style.border-color]="category.color">
+          <mat-icon [style.color]="category.color">{{ category.icon }}</mat-icon>
+          <span class="category-name">{{ getCategoryName(category) }}</span>
+          <span class="category-count">({{ category.count }})</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Photos Section -->
+  <section class="featured-section" *ngIf="getFeaturedPhotos().length > 0">
+    <div class="featured-container">
+      <h2 class="section-title">{{ isRTL ? 'الصور المميزة' : 'Featured Photos' }}</h2>
+      <div class="featured-photos-grid">
+        <div class="featured-photo-card" *ngFor="let photo of getFeaturedPhotos()">
+          <div class="photo-image" (click)="openPhotoModal(photo)">
+            <img [src]="photo.thumbnail" [alt]="getPhotoTitle(photo)" />
+            <div class="photo-overlay">
+              <div class="featured-badge">
+                <mat-icon>star</mat-icon>
+                <span>{{ isRTL ? 'مميز' : 'Featured' }}</span>
+              </div>
+              <div class="view-icon">
+                <mat-icon>zoom_in</mat-icon>
+              </div>
+            </div>
+          </div>
+          <div class="photo-content">
+            <div class="photo-meta">
+              <span class="category-tag" [style.background-color]="getCategoryColor(photo.category.en)">
+                {{ getPhotoCategory(photo) }}
+              </span>
+              <span class="photo-date">{{ formatDate(photo.date) }}</span>
+            </div>
+            <h3 class="photo-title">{{ getPhotoTitle(photo) }}</h3>
+            <p class="photo-description">{{ getPhotoDescription(photo) }}</p>
+
+            <div class="photo-details">
+              <div class="detail-item">
+                <mat-icon>location_on</mat-icon>
+                <span>{{ getPhotoLocation(photo) }}</span>
+              </div>
+            </div>
+
+            <div class="photo-tags">
+              <span class="tag" *ngFor="let tag of photo.tags">{{ tag }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Photos Section -->
+  <section class="photos-section">
+    <div class="photos-container">
+      <h2 class="section-title">{{ isRTL ? 'جميع الصور' : 'All Photos' }}</h2>
+      <div class="photos-grid">
+        <div class="photo-card" *ngFor="let photo of getFilteredPhotos()">
+          <div class="photo-image" (click)="openPhotoModal(photo)">
+            <img [src]="photo.thumbnail" [alt]="getPhotoTitle(photo)" />
+            <div class="photo-overlay">
+              <div class="view-icon">
+                <mat-icon>zoom_in</mat-icon>
+              </div>
+            </div>
+          </div>
+          <div class="photo-content">
+            <div class="photo-meta">
+              <span class="category-tag" [style.background-color]="getCategoryColor(photo.category.en)">
+                {{ getPhotoCategory(photo) }}
+              </span>
+              <span class="photo-date">{{ formatDate(photo.date) }}</span>
+            </div>
+            <h3 class="photo-title">{{ getPhotoTitle(photo) }}</h3>
+            <p class="photo-description">{{ getPhotoDescription(photo) }}</p>
+
+            <div class="photo-details">
+              <div class="detail-item">
+                <mat-icon>location_on</mat-icon>
+                <span>{{ getPhotoLocation(photo) }}</span>
+              </div>
+            </div>
+
+            <div class="photo-tags">
+              <span class="tag" *ngFor="let tag of photo.tags.slice(0, 3)">{{ tag }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results Message -->
+      <div class="no-results" *ngIf="getFilteredPhotos().length === 0">
+        <mat-icon>photo_library</mat-icon>
+        <h3>{{ isRTL ? 'لا توجد نتائج' : 'No Results Found' }}</h3>
+        <p>
+          {{ isRTL
+            ? 'جرب تغيير معايير البحث أو الفئة المحددة'
+            : 'Try changing your search criteria or selected category'
+          }}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Photo Modal -->
+  <div class="photo-modal" *ngIf="selectedPhoto" (click)="closePhotoModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <button class="close-btn" (click)="closePhotoModal()">
+        <mat-icon>close</mat-icon>
+      </button>
+      <div class="modal-image">
+        <img [src]="selectedPhoto.image" [alt]="getPhotoTitle(selectedPhoto)" />
+      </div>
+      <div class="modal-info">
+        <h3 class="modal-title">{{ getPhotoTitle(selectedPhoto) }}</h3>
+        <p class="modal-description">{{ getPhotoDescription(selectedPhoto) }}</p>
+        <div class="modal-meta">
+          <div class="meta-item">
+            <mat-icon>location_on</mat-icon>
+            <span>{{ getPhotoLocation(selectedPhoto) }}</span>
+          </div>
+          <div class="meta-item">
+            <mat-icon>calendar_today</mat-icon>
+            <span>{{ formatDate(selectedPhoto.date) }}</span>
+          </div>
+          <div class="meta-item">
+            <mat-icon>category</mat-icon>
+            <span>{{ getPhotoCategory(selectedPhoto) }}</span>
+          </div>
+        </div>
+        <div class="modal-tags">
+          <span class="tag" *ngFor="let tag of selectedPhoto.tags">{{ tag }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

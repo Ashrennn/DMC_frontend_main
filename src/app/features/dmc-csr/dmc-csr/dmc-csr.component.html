@@ -1,0 +1,51 @@
+<div class="dmc-csr-container" [class.rtl]="isRTL">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <mat-icon class="badge-icon">{{ getCurrentPageContent().badgeIcon }}</mat-icon>
+        <span class="badge-text">{{ getCurrentPageContent().badgeText }}</span>
+      </div>
+      <h1 class="hero-title">{{ getCurrentPageContent().title }}</h1>
+      <p class="hero-subtitle">{{ getCurrentPageContent().subtitle }}</p>
+    </div>
+  </section>
+
+  <!-- Navigation Section -->
+  <section class="navigation-section">
+    <div class="nav-container">
+      <nav class="csr-nav">
+        <a
+          routerLink="our-brands"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>branding_watermark</mat-icon>
+          <span>{{ getNavText('our-brands') }}</span>
+        </a>
+        <a
+          routerLink="mohade-charity"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>volunteer_activism</mat-icon>
+          <span>{{ getNavText('mohade-charity') }}</span>
+        </a>
+        <a
+          routerLink="photo-gallery"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>photo_library</mat-icon>
+          <span>{{ getNavText('photo-gallery') }}</span>
+        </a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="content-section">
+    <div class="content-container">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
+</div>

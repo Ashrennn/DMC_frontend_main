@@ -1,0 +1,320 @@
+<div class="products-services-container">
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>category</mat-icon>
+      </div>
+      <h1 class="page-title">{{ isRTL ? 'المنتجات والخدمات' : 'Products & Services' }}</h1>
+      <p class="page-subtitle">
+        {{ isRTL
+          ? 'اكتشف مجموعة منتجاتنا وخدماتنا المتقدمة'
+          : 'Discover our comprehensive range of products and services'
+        }}
+      </p>
+    </div>
+  </section>
+
+  <!-- Search and Filter Section -->
+  <section class="controls-section">
+    <div class="controls-container">
+      <div class="search-box">
+        <mat-icon>search</mat-icon>
+        <input
+          type="text"
+          [placeholder]="isRTL ? 'البحث في المنتجات والخدمات...' : 'Search products & services...'"
+          [(ngModel)]="searchQuery"
+          (input)="onSearchChange($event)"
+          class="search-input" />
+      </div>
+
+      <div class="type-filter">
+        <label class="filter-label">{{ isRTL ? 'النوع:' : 'Type:' }}</label>
+        <div class="type-buttons">
+          <button
+            class="type-btn"
+            [class.active]="selectedType === 'all'"
+            (click)="selectType('all')">
+            {{ isRTL ? 'الكل' : 'All' }}
+          </button>
+          <button
+            class="type-btn"
+            [class.active]="selectedType === 'product'"
+            (click)="selectType('product')">
+            {{ isRTL ? 'المنتجات' : 'Products' }}
+          </button>
+          <button
+            class="type-btn"
+            [class.active]="selectedType === 'service'"
+            (click)="selectType('service')">
+            {{ isRTL ? 'الخدمات' : 'Services' }}
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filters -->
+  <section class="filters-section">
+    <div class="filters-container">
+      <h3 class="filters-title">{{ isRTL ? 'تصفية حسب الفئة' : 'Filter by Category' }}</h3>
+      <div class="category-filters">
+        <button
+          class="category-filter"
+          *ngFor="let category of categories"
+          [class.active]="selectedCategory === getCategoryName(category)"
+          (click)="selectCategory(getCategoryName(category))"
+          [style.border-color]="category.color">
+          <mat-icon [style.color]="category.color">{{ category.icon }}</mat-icon>
+          <span class="category-name">{{ getCategoryName(category) }}</span>
+          <span class="category-count">({{ category.count }})</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Products Section -->
+  <section class="featured-section" *ngIf="getFeaturedProducts().length > 0 && (selectedType === 'all' || selectedType === 'product')">
+    <div class="featured-container">
+      <h2 class="section-title">{{ isRTL ? 'المنتجات المميزة' : 'Featured Products' }}</h2>
+      <div class="featured-products-grid">
+        <div class="featured-product-card" *ngFor="let product of getFeaturedProducts()">
+          <div class="product-image">
+            <img [src]="product.image" [alt]="getProductName(product)" />
+            <div class="product-overlay">
+              <div class="featured-badge">
+                <mat-icon>star</mat-icon>
+                <span>{{ isRTL ? 'مميز' : 'Featured' }}</span>
+              </div>
+              <div class="availability-badge" [class]="getAvailabilityClass(product.availability)">
+                {{ getAvailabilityText(product.availability) }}
+              </div>
+            </div>
+          </div>
+          <div class="product-content">
+            <div class="product-meta">
+              <span class="category-tag" [style.background-color]="getCategoryColor(product.category.en)">
+                {{ getProductCategory(product) }}
+              </span>
+              <span class="price" *ngIf="product.price">{{ product.price }}</span>
+            </div>
+            <h3 class="product-title">{{ getProductName(product) }}</h3>
+            <p class="product-description">{{ getProductDescription(product) }}</p>
+
+            <div class="product-features">
+              <h4>{{ isRTL ? 'المميزات الرئيسية:' : 'Key Features:' }}</h4>
+              <ul>
+                <li *ngFor="let feature of product.features">{{ feature }}</li>
+              </ul>
+            </div>
+
+            <div class="product-specs">
+              <h4>{{ isRTL ? 'المواصفات:' : 'Specifications:' }}</h4>
+              <div class="specs-grid">
+                <div class="spec-item" *ngFor="let spec of product.specifications | keyvalue">
+                  <span class="spec-label">{{ spec.key }}:</span>
+                  <span class="spec-value">{{ spec.value }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-tags">
+              <span class="tag" *ngFor="let tag of product.tags">{{ tag }}</span>
+            </div>
+
+            <div class="product-actions">
+              <button class="contact-btn" (click)="contactSales()">
+                <mat-icon>contact_support</mat-icon>
+                <span>{{ isRTL ? 'تواصل مع المبيعات' : 'Contact Sales' }}</span>
+              </button>
+              <button class="learn-more-btn" (click)="learnMore()">
+                <mat-icon>info</mat-icon>
+                <span>{{ isRTL ? 'اعرف المزيد' : 'Learn More' }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Services Section -->
+  <section class="featured-section" *ngIf="getFeaturedServices().length > 0 && (selectedType === 'all' || selectedType === 'service')">
+    <div class="featured-container">
+      <h2 class="section-title">{{ isRTL ? 'الخدمات المميزة' : 'Featured Services' }}</h2>
+      <div class="featured-services-grid">
+        <div class="featured-service-card" *ngFor="let service of getFeaturedServices()">
+          <div class="service-header">
+            <div class="service-icon">
+              <mat-icon>{{ service.icon }}</mat-icon>
+            </div>
+            <div class="service-meta">
+              <span class="category-tag" [style.background-color]="getCategoryColor(service.category.en)">
+                {{ getServiceCategory(service) }}
+              </span>
+              <div class="featured-badge">
+                <mat-icon>star</mat-icon>
+                <span>{{ isRTL ? 'مميز' : 'Featured' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="service-content">
+            <h3 class="service-title">{{ getServiceName(service) }}</h3>
+            <p class="service-description">{{ getServiceDescription(service) }}</p>
+
+            <div class="service-duration">
+              <mat-icon>schedule</mat-icon>
+              <span>{{ isRTL ? 'المدة:' : 'Duration:' }} {{ service.duration }}</span>
+            </div>
+
+            <div class="service-benefits">
+              <h4>{{ isRTL ? 'الفوائد:' : 'Benefits:' }}</h4>
+              <ul>
+                <li *ngFor="let benefit of service.benefits">{{ benefit }}</li>
+              </ul>
+            </div>
+
+            <div class="service-process">
+              <h4>{{ isRTL ? 'الخطوات:' : 'Process:' }}</h4>
+              <ol>
+                <li *ngFor="let step of service.process">{{ step }}</li>
+              </ol>
+            </div>
+
+            <div class="service-tags">
+              <span class="tag" *ngFor="let tag of service.tags">{{ tag }}</span>
+            </div>
+
+            <div class="service-actions">
+              <button class="contact-btn" (click)="contactSales()">
+                <mat-icon>contact_support</mat-icon>
+                <span>{{ isRTL ? 'تواصل معنا' : 'Contact Us' }}</span>
+              </button>
+              <button class="learn-more-btn" (click)="learnMore()">
+                <mat-icon>info</mat-icon>
+                <span>{{ isRTL ? 'اعرف المزيد' : 'Learn More' }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Products Section -->
+  <section class="products-section" *ngIf="selectedType === 'all' || selectedType === 'product'">
+    <div class="products-container">
+      <h2 class="section-title">{{ isRTL ? 'جميع المنتجات' : 'All Products' }}</h2>
+      <div class="products-grid">
+        <div class="product-card" *ngFor="let product of getFilteredProducts()">
+          <div class="product-image">
+            <img [src]="product.image" [alt]="getProductName(product)" />
+            <div class="product-overlay">
+              <div class="availability-badge" [class]="getAvailabilityClass(product.availability)">
+                {{ getAvailabilityText(product.availability) }}
+              </div>
+            </div>
+          </div>
+          <div class="product-content">
+            <div class="product-meta">
+              <span class="category-tag" [style.background-color]="getCategoryColor(product.category.en)">
+                {{ getProductCategory(product) }}
+              </span>
+              <span class="price" *ngIf="product.price">{{ product.price }}</span>
+            </div>
+            <h3 class="product-title">{{ getProductName(product) }}</h3>
+            <p class="product-description">{{ getProductDescription(product) }}</p>
+
+            <div class="product-features">
+              <h4>{{ isRTL ? 'المميزات:' : 'Features:' }}</h4>
+              <ul>
+                <li *ngFor="let feature of product.features.slice(0, 3)">{{ feature }}</li>
+                <li *ngIf="product.features.length > 3" class="more-features">
+                  {{ isRTL ? '+ المزيد' : '+ More' }}
+                </li>
+              </ul>
+            </div>
+
+            <div class="product-tags">
+              <span class="tag" *ngFor="let tag of product.tags.slice(0, 3)">{{ tag }}</span>
+            </div>
+
+            <div class="product-actions">
+              <button class="contact-btn" (click)="contactSales()">
+                <mat-icon>contact_support</mat-icon>
+                <span>{{ isRTL ? 'تواصل مع المبيعات' : 'Contact Sales' }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Services Section -->
+  <section class="services-section" *ngIf="selectedType === 'all' || selectedType === 'service'">
+    <div class="services-container">
+      <h2 class="section-title">{{ isRTL ? 'جميع الخدمات' : 'All Services' }}</h2>
+      <div class="services-grid">
+        <div class="service-card" *ngFor="let service of getFilteredServices()">
+          <div class="service-header">
+            <div class="service-icon">
+              <mat-icon>{{ service.icon }}</mat-icon>
+            </div>
+            <span class="category-tag" [style.background-color]="getCategoryColor(service.category.en)">
+              {{ getServiceCategory(service) }}
+            </span>
+          </div>
+
+          <div class="service-content">
+            <h3 class="service-title">{{ getServiceName(service) }}</h3>
+            <p class="service-description">{{ getServiceDescription(service) }}</p>
+
+            <div class="service-duration">
+              <mat-icon>schedule</mat-icon>
+              <span>{{ isRTL ? 'المدة:' : 'Duration:' }} {{ service.duration }}</span>
+            </div>
+
+            <div class="service-benefits">
+              <h4>{{ isRTL ? 'الفوائد:' : 'Benefits:' }}</h4>
+              <ul>
+                <li *ngFor="let benefit of service.benefits.slice(0, 2)">{{ benefit }}</li>
+                <li *ngIf="service.benefits.length > 2" class="more-benefits">
+                  {{ isRTL ? '+ المزيد' : '+ More' }}
+                </li>
+              </ul>
+            </div>
+
+            <div class="service-tags">
+              <span class="tag" *ngFor="let tag of service.tags.slice(0, 3)">{{ tag }}</span>
+            </div>
+
+            <div class="service-actions">
+              <button class="contact-btn" (click)="contactSales()">
+                <mat-icon>contact_support</mat-icon>
+                <span>{{ isRTL ? 'تواصل معنا' : 'Contact Us' }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- No Results Message -->
+  <section class="no-results" *ngIf="(getFilteredProducts().length === 0 && getFilteredServices().length === 0)">
+    <div class="no-results-content">
+      <mat-icon>search_off</mat-icon>
+      <h3>{{ isRTL ? 'لا توجد نتائج' : 'No Results Found' }}</h3>
+      <p>
+        {{ isRTL
+          ? 'جرب تغيير معايير البحث أو الفئة المحددة'
+          : 'Try changing your search criteria or selected category'
+        }}
+      </p>
+    </div>
+  </section>
+</div>
+
+

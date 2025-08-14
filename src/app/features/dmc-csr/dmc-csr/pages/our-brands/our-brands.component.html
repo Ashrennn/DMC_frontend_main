@@ -1,0 +1,202 @@
+<div class="our-brands-container">
+  <!-- Page Header -->
+  <section class="page-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>branding_watermark</mat-icon>
+      </div>
+      <h1 class="page-title">{{ isRTL ? 'علاماتنا التجارية' : 'Our Brands' }}</h1>
+      <p class="page-subtitle">
+        {{ isRTL
+          ? 'اكتشف مجموعة علاماتنا التجارية المتنوعة والموثوقة'
+          : 'Discover our diverse and trusted portfolio of brands'
+        }}
+      </p>
+    </div>
+  </section>
+
+  <!-- Search and Filter Section -->
+  <section class="controls-section">
+    <div class="controls-container">
+      <div class="search-box">
+        <mat-icon>search</mat-icon>
+        <input
+          type="text"
+          [placeholder]="isRTL ? 'البحث في العلامات التجارية...' : 'Search brands...'"
+          [(ngModel)]="searchQuery"
+          (input)="onSearchChange($event)"
+          class="search-input" />
+      </div>
+
+      <div class="sort-controls">
+        <label class="sort-label">{{ isRTL ? 'ترتيب حسب:' : 'Sort by:' }}</label>
+        <select
+          [(ngModel)]="sortBy"
+          (change)="onSortChange($event)"
+          class="sort-select">
+          <option value="name">{{ isRTL ? 'الاسم' : 'Name' }}</option>
+          <option value="founded">{{ isRTL ? 'سنة التأسيس' : 'Founded' }}</option>
+          <option value="featured">{{ isRTL ? 'المميزة' : 'Featured' }}</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Category Filters -->
+  <section class="filters-section">
+    <div class="filters-container">
+      <h3 class="filters-title">{{ isRTL ? 'تصفية حسب الفئة' : 'Filter by Category' }}</h3>
+      <div class="category-filters">
+        <button
+          class="category-filter"
+          *ngFor="let category of categories"
+          [class.active]="selectedCategory === getCategoryName(category)"
+          (click)="selectCategory(getCategoryName(category))"
+          [style.border-color]="category.color">
+          <mat-icon [style.color]="category.color">{{ category.icon }}</mat-icon>
+          <span class="category-name">{{ getCategoryName(category) }}</span>
+          <span class="category-count">({{ category.count }})</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Brands Section -->
+  <section class="featured-section" *ngIf="getFeaturedBrands().length > 0">
+    <div class="featured-container">
+      <h2 class="section-title">{{ isRTL ? 'العلامات المميزة' : 'Featured Brands' }}</h2>
+      <div class="featured-brands-grid">
+        <div class="featured-brand-card" *ngFor="let brand of getFeaturedBrands()">
+          <div class="brand-image">
+            <img [src]="brand.image" [alt]="getBrandName(brand)" />
+            <div class="brand-overlay">
+              <div class="featured-badge">
+                <mat-icon>star</mat-icon>
+                <span>{{ isRTL ? 'مميز' : 'Featured' }}</span>
+              </div>
+              <div class="brand-logo">
+                <img [src]="brand.logo" [alt]="getBrandName(brand) + ' logo'" />
+              </div>
+            </div>
+          </div>
+          <div class="brand-content">
+            <div class="brand-meta">
+              <span class="category-tag" [style.background-color]="getCategoryColor(brand.category.en)">
+                {{ getBrandCategory(brand) }}
+              </span>
+              <span class="founded-year">{{ isRTL ? 'تأسست في' : 'Founded' }} {{ brand.founded }}</span>
+            </div>
+            <h3 class="brand-title">{{ getBrandName(brand) }}</h3>
+            <p class="brand-description">{{ getBrandDescription(brand) }}</p>
+
+            <div class="brand-details">
+              <div class="detail-item">
+                <mat-icon>location_on</mat-icon>
+                <span>{{ getBrandHeadquarters(brand) }}</span>
+              </div>
+              <div class="detail-item">
+                <mat-icon>business</mat-icon>
+                <span>{{ getBrandIndustry(brand) }}</span>
+              </div>
+            </div>
+
+            <div class="brand-achievements">
+              <h4>{{ isRTL ? 'الإنجازات الرئيسية:' : 'Key Achievements:' }}</h4>
+              <ul>
+                <li *ngFor="let achievement of brand.achievements">{{ achievement }}</li>
+              </ul>
+            </div>
+
+            <div class="brand-tags">
+              <span class="tag" *ngFor="let tag of brand.tags">{{ tag }}</span>
+            </div>
+
+            <div class="brand-actions">
+              <button class="visit-website-btn" (click)="visitWebsite(brand.website)">
+                <mat-icon>language</mat-icon>
+                <span>{{ isRTL ? 'زيارة الموقع' : 'Visit Website' }}</span>
+              </button>
+              <button class="learn-more-btn">
+                <mat-icon>info</mat-icon>
+                <span>{{ isRTL ? 'اعرف المزيد' : 'Learn More' }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- All Brands Section -->
+  <section class="brands-section">
+    <div class="brands-container">
+      <h2 class="section-title">{{ isRTL ? 'جميع العلامات التجارية' : 'All Brands' }}</h2>
+      <div class="brands-grid">
+        <div class="brand-card" *ngFor="let brand of getFilteredBrands()">
+          <div class="brand-image">
+            <img [src]="brand.image" [alt]="getBrandName(brand)" />
+            <div class="brand-overlay">
+              <div class="brand-logo">
+                <img [src]="brand.logo" [alt]="getBrandName(brand) + ' logo'" />
+              </div>
+            </div>
+          </div>
+          <div class="brand-content">
+            <div class="brand-meta">
+              <span class="category-tag" [style.background-color]="getCategoryColor(brand.category.en)">
+                {{ getBrandCategory(brand) }}
+              </span>
+              <span class="founded-year">{{ isRTL ? 'تأسست في' : 'Founded' }} {{ brand.founded }}</span>
+            </div>
+            <h3 class="brand-title">{{ getBrandName(brand) }}</h3>
+            <p class="brand-description">{{ getBrandDescription(brand) }}</p>
+
+            <div class="brand-details">
+              <div class="detail-item">
+                <mat-icon>location_on</mat-icon>
+                <span>{{ getBrandHeadquarters(brand) }}</span>
+              </div>
+              <div class="detail-item">
+                <mat-icon>business</mat-icon>
+                <span>{{ getBrandIndustry(brand) }}</span>
+              </div>
+            </div>
+
+            <div class="brand-achievements">
+              <h4>{{ isRTL ? 'الإنجازات:' : 'Achievements:' }}</h4>
+              <ul>
+                <li *ngFor="let achievement of brand.achievements.slice(0, 2)">{{ achievement }}</li>
+                <li *ngIf="brand.achievements.length > 2" class="more-achievements">
+                  {{ isRTL ? '+ المزيد' : '+ More' }}
+                </li>
+              </ul>
+            </div>
+
+            <div class="brand-tags">
+              <span class="tag" *ngFor="let tag of brand.tags.slice(0, 3)">{{ tag }}</span>
+            </div>
+
+            <div class="brand-actions">
+              <button class="visit-website-btn" (click)="visitWebsite(brand.website)">
+                <mat-icon>language</mat-icon>
+                <span>{{ isRTL ? 'زيارة الموقع' : 'Visit Website' }}</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Results Message -->
+      <div class="no-results" *ngIf="getFilteredBrands().length === 0">
+        <mat-icon>branding_watermark</mat-icon>
+        <h3>{{ isRTL ? 'لا توجد نتائج' : 'No Results Found' }}</h3>
+        <p>
+          {{ isRTL
+            ? 'جرب تغيير معايير البحث أو الفئة المحددة'
+            : 'Try changing your search criteria or selected category'
+          }}
+        </p>
+      </div>
+    </div>
+  </section>
+</div>

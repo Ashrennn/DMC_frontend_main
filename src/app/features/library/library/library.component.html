@@ -1,0 +1,51 @@
+<div class="library-container" [class.rtl]="isRTL">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-background"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">
+        <mat-icon class="badge-icon">{{ getCurrentPageContent().badgeIcon }}</mat-icon>
+        <span class="badge-text">{{ getCurrentPageContent().badgeText }}</span>
+      </div>
+      <h1 class="hero-title">{{ getCurrentPageContent().title }}</h1>
+      <p class="hero-subtitle">{{ getCurrentPageContent().subtitle }}</p>
+    </div>
+  </section>
+
+  <!-- Navigation Section -->
+  <section class="navigation-section">
+    <div class="nav-container">
+      <nav class="library-nav">
+        <a
+          routerLink="newsletter"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>article</mat-icon>
+          <span>{{ getNavText('newsletter') }}</span>
+        </a>
+        <a
+          routerLink="video-gallery"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>video_collection</mat-icon>
+          <span>{{ getNavText('video-gallery') }}</span>
+        </a>
+        <a
+          routerLink="products-services"
+          routerLinkActive="active"
+          class="nav-item">
+          <mat-icon>category</mat-icon>
+          <span>{{ getNavText('products-services') }}</span>
+        </a>
+      </nav>
+    </div>
+  </section>
+
+  <!-- Content Section -->
+  <section class="content-section">
+    <div class="content-container">
+      <router-outlet></router-outlet>
+    </div>
+  </section>
+</div>

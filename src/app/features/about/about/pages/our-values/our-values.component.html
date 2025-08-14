@@ -1,0 +1,82 @@
+<div class="values-container" [class.rtl]="isRTL">
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>favorite</mat-icon>
+      </div>
+      <h1 class="page-title">{{ getPageTitle() }}</h1>
+      <p class="page-subtitle">{{ getPageSubtitle() }}</p>
+    </div>
+  </header>
+
+  <!-- Core Values Section -->
+  <section class="values-section">
+    <div class="values-container">
+      <h2 class="section-title">{{ getValuesTitle() }}</h2>
+      <p class="section-subtitle">{{ getValuesSubtitle() }}</p>
+
+      <div class="values-grid">
+        <div *ngFor="let value of coreValues" class="value-card">
+          <div class="value-icon" [style.background-color]="value.color">
+            <mat-icon>{{ value.icon }}</mat-icon>
+          </div>
+          <div class="value-content">
+            <h3 class="value-name">{{ getValueName(value) }}</h3>
+            <p class="value-description">{{ getValueDescription(value) }}</p>
+            <div class="value-principles">
+              <h4 class="principles-title">{{ getPrinciplesTitle() }}</h4>
+              <ul class="principles-list">
+                <li *ngFor="let principle of value.principles">{{ getPrinciple(principle) }}</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Commitment Section -->
+  <section class="commitment-section">
+    <div class="commitment-container">
+      <h2 class="section-title">{{ getCommitmentTitle() }}</h2>
+      <p class="section-subtitle">{{ getCommitmentSubtitle() }}</p>
+
+      <div class="commitment-grid">
+        <div *ngFor="let commitment of commitments" class="commitment-card">
+          <div class="commitment-icon">
+            <mat-icon>{{ commitment.icon }}</mat-icon>
+          </div>
+          <div class="commitment-content">
+            <h3 class="commitment-name">{{ getCommitmentName(commitment) }}</h3>
+            <p class="commitment-description">{{ getCommitmentDescription(commitment) }}</p>
+            <div class="commitment-stats">
+              <span class="stat-number">{{ commitment.target }}</span>
+              <span class="stat-label">{{ getCommitmentTarget(commitment) }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Culture Section -->
+  <section class="culture-section">
+    <div class="culture-container">
+      <h2 class="section-title">{{ getCultureTitle() }}</h2>
+      <p class="section-subtitle">{{ getCultureSubtitle() }}</p>
+
+      <div class="culture-grid">
+        <div *ngFor="let aspect of cultureAspects" class="culture-card">
+          <div class="culture-icon" [style.background-color]="aspect.color">
+            <mat-icon>{{ aspect.icon }}</mat-icon>
+          </div>
+          <div class="culture-content">
+            <h3 class="culture-name">{{ getCultureName(aspect) }}</h3>
+            <p class="culture-description">{{ getCultureDescription(aspect) }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
