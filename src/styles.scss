@@ -1,0 +1,65 @@
+/* You can add global styles to this file, and also import other style files */
+@import "@angular/material/prebuilt-themes/indigo-pink.css";
+@import "leaflet/dist/leaflet.css";
+
+/* Global Color Variables */
+:root {
+  --primary-color: #001B3F;   /* Dark Navy Blue */
+  --secondary-color: #D7E3FF; /* Light Blue/White */
+}
+
+/* Global scrollbar hiding while maintaining scroll functionality */
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: none;
+}
+
+/* For IE/Edge */
+body {
+  -ms-overflow-style: none;
+}
+
+/* Global styles to prevent scrollbars during loading */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
+  font-family: 'Roboto', Arial, sans-serif;
+}
+
+/* Ensure Angular app can expand beyond viewport */
+dmc-root {
+  display: block;
+  height: auto;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Prevent scrollbars during initial load */
+body.loading {
+  overflow: hidden;
+}
+
+/* Re-enable scrolling after load */
+body.loaded {
+  overflow: auto;
+}

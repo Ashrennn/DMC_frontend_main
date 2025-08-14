@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>DMCNRG</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <style>
+    /* Reset and prevent scrollbars */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      height: 100%;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Initial Loader Styles - Shows before Angular loads */
+    .initial-loader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      overflow: hidden;
+    }
+
+    .initial-loader-content {
+      text-align: center;
+      color: white;
+      max-width: 400px;
+      padding: 2rem;
+    }
+
+    .initial-loader-spinner {
+      width: 60px;
+      height: 60px;
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin: 0 auto 2rem;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .initial-loader-text {
+      font-size: 2rem;
+      font-weight: 300;
+      margin-bottom: 1rem;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    .initial-loader-subtext {
+      font-size: 1rem;
+      opacity: 0.8;
+      margin-bottom: 2rem;
+    }
+
+    .initial-loader-progress {
+      width: 100%;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .initial-progress-bar {
+      height: 100%;
+      background: white;
+      border-radius: 2px;
+      transition: width 0.3s ease;
+      width: 0%;
+      animation: progress 3s ease-in-out forwards;
+    }
+
+    @keyframes progress {
+      0% { width: 0%; }
+      100% { width: 100%; }
+    }
+
+    /* Hide loader when Angular is ready */
+    .angular-ready .initial-loader {
+      display: none;
+    }
+
+    /* Ensure Angular app takes full viewport */
+    dmc-root {
+      display: block;
+      height: 100vh;
+      width: 100vw;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body class="loading">
+  <!-- Initial Loader - Shows before Angular loads -->
+  <div id="initial-loader" class="initial-loader">
+    <div class="initial-loader-content">
+      <div class="initial-loader-spinner"></div>
+      <h2 class="initial-loader-text">DMCNRG Loading...</h2>
+      <p class="initial-loader-subtext">Please wait while we prepare your experience</p>
+      <div class="initial-loader-progress">
+        <div class="initial-progress-bar"></div>
+      </div>
+    </div>
+  </div>
+
+  <dmc-root></dmc-root>
+
+  <script>
+    // Hide initial loader when Angular is ready
+    window.addEventListener('load', function() {
+      setTimeout(function() {
+        document.body.classList.add('angular-ready');
+        document.body.classList.remove('loading');
+        document.body.classList.add('loaded');
+        const initialLoader = document.getElementById('initial-loader');
+        if (initialLoader) {
+          initialLoader.style.display = 'none';
+        }
+        // Re-enable scrolling after loader is hidden
+        document.body.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
+      }, 3000); // Match the 3-second duration
+    });
+  </script>
+</body>
+</html>
