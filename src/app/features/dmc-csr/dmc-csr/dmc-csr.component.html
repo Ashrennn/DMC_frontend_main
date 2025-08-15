@@ -1,4 +1,7 @@
 <div class="dmc-csr-container" [class.rtl]="isRTL">
+  <!-- Navigation Component (Header + Floating Menu only) -->
+  <dmc-navigation [childData]="childData"></dmc-navigation>
+  
   <!-- Hero Section -->
   <section class="hero-section">
     <div class="hero-background"></div>
@@ -48,4 +51,9 @@
       <router-outlet></router-outlet>
     </div>
   </section>
+
+  <!-- Footer at the bottom -->
+  <footer class="footer">
+    <dmc-footer-bar [childData]="childData"></dmc-footer-bar>
+  </footer>
 </div>
