@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ResponsiveService } from '../../../shared/services/responsiveness';
 import { NavigationComponent } from './navigation/navigation.component';
+import { FooterBarComponent } from './navigation/footer-bar/footer-bar.component';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -8,28 +9,48 @@ import { RouterOutlet } from '@angular/router';
   standalone: false,
   template: `
     <div class="home-container">
-      <!-- Navigation Component (Full Viewport) -->
+      <!-- Navigation Component (Header + Floating Menu only) -->
       <dmc-navigation [childData]="childData"></dmc-navigation>
       
-      <!-- Router Outlet for About Pages -->
-      <router-outlet></router-outlet>
+      <!-- Main content area -->
+      <main class="main-content">
+        <router-outlet></router-outlet>
+      </main>
+      
+      <!-- Footer at the bottom -->
+      <footer class="footer">
+        <dmc-footer-bar [childData]="childData"></dmc-footer-bar>
+      </footer>
     </div>
   `,
   styles: [`
     .home-container {
       width: 100%;
       min-height: 100vh;
-      display: block;
+      display: flex;
+      flex-direction: column;
       background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
       overflow: visible;
       position: relative;
+    }
+    
+    .main-content {
+      flex: 1; /* Takes up remaining space */
+      margin-top: 0; /* Navigation component handles the top spacing */
+      min-height: calc(100vh - 60px); /* Account for header height */
+      background: white;
+      position: relative;
+    }
+    
+    .footer {
+      margin-top: auto; /* Push footer to bottom */
+      width: 100%;
     }
   `]
 })
 export class HomeComponent {
   constructor(public responsiveService: ResponsiveService) {}
 
-  // Single source of truth for child components
   get childData() {
     return {
       breakpoint: this.responsiveService.getCurrentBreakpoint(),

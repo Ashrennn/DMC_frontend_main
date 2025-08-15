@@ -1,5 +1,14 @@
+// Main container
+.our-history-page {
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+}
+
 .history-container {
   max-width: 100%;
+  margin: 0 auto;
+  padding: 0;
 }
 
 /* Page Header */
@@ -12,6 +21,7 @@
 .header-content {
   max-width: 800px;
   margin: 0 auto;
+  padding: 0 1rem;
 }
 
 .header-icon {
@@ -24,13 +34,13 @@
   border-radius: 50%;
   margin-bottom: 1.5rem;
   box-shadow: 0 8px 32px rgba(0, 27, 63, 0.3);
-}
 
-.header-icon mat-icon {
-  font-size: 2.5rem;
-  width: 2.5rem;
-  height: 2.5rem;
-  color: white;
+  mat-icon {
+    font-size: 2.5rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    color: white;
+  }
 }
 
 .page-title {
@@ -45,9 +55,8 @@
   font-size: clamp(1.1rem, 2vw, 1.3rem);
   color: #64748b;
   line-height: 1.6;
-  margin: 0;
-  max-width: 600px;
   margin: 0 auto;
+  max-width: 600px;
 }
 
 /* Timeline Section */
@@ -304,6 +313,39 @@
   letter-spacing: 0.5px;
 }
 
+/* RTL Support */
+.our-history-page.rtl {
+  direction: rtl;
+
+  .timeline-event {
+    &.left {
+      flex-direction: row-reverse;
+      justify-content: flex-end;
+
+      .event-content {
+        margin-right: 2rem;
+        margin-left: 0;
+        text-align: right;
+      }
+    }
+
+    &.right {
+      flex-direction: row;
+      justify-content: flex-start;
+
+      .event-content {
+        margin-left: 2rem;
+        margin-right: 0;
+        text-align: left;
+      }
+    }
+  }
+
+  .stat-content {
+    text-align: right;
+  }
+}
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .timeline-line {
@@ -332,6 +374,31 @@
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
+
+  .timeline-container {
+    padding: 0 1rem;
+  }
+
+  .our-history-page.rtl {
+    .timeline-event {
+      margin-right: 2rem;
+      margin-left: 0;
+
+      .event-content {
+        text-align: right !important;
+      }
+    }
+
+    .timeline-dot {
+      right: 2rem;
+      left: auto;
+    }
+
+    .timeline-line {
+      right: 2rem;
+      left: auto;
+    }
+  }
 }
 
 @media (max-width: 480px) {
@@ -345,5 +412,10 @@
 
   .page-header {
     margin-bottom: 2rem;
+    padding: 1rem 0;
+  }
+
+  .timeline-container {
+    padding: 0 0.5rem;
   }
 }
