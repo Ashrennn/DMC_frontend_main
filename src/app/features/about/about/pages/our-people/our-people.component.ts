@@ -108,7 +108,7 @@ export class OurPeopleComponent implements OnInit {
       name: { en: 'Ahmed Al Mansouri', ar: 'أحمد المنصوري' },
       position: { en: 'Chief Executive Officer', ar: 'الرئيس التنفيذي' },
       department: { en: 'Executive Leadership', ar: 'القيادة التنفيذية' },
-      image: 'assets/images/our-people/comp3/cu1.jpeg',
+      image: 'images/about/our-people/comp3/cu1.jpeg',
       bio: {
         en: 'Visionary leader with 20+ years of experience in energy and maritime industries.',
         ar: 'قائد رؤيوي مع أكثر من 20 عاماً من الخبرة في صناعات الطاقة والبحرية'
@@ -121,7 +121,7 @@ export class OurPeopleComponent implements OnInit {
       name: { en: 'Sarah Johnson', ar: 'سارة جونسون' },
       position: { en: 'Chief Operations Officer', ar: 'مدير العمليات' },
       department: { en: 'Operations & Logistics', ar: 'العمليات والخدمات اللوجستية' },
-      image: 'assets/images/our-people/comp3/cu2.jpg',
+      image: 'images/about/our-people/comp3/cu2.jpg',
       bio: {
         en: 'Operations expert specializing in maritime logistics and supply chain optimization.',
         ar: 'خبيرة في العمليات متخصصة في الخدمات اللوجستية البحرية وتحسين سلسلة التوريد'
@@ -134,7 +134,7 @@ export class OurPeopleComponent implements OnInit {
       name: { en: 'Mohammed Hassan', ar: 'محمد حسن' },
       position: { en: 'Head of Energy Trading', ar: 'رئيس تجارة الطاقة' },
       department: { en: 'Energy Trading', ar: 'تجارة الطاقة' },
-      image: 'assets/images/our-people/comp3/cu3.jpg',
+      image: 'images/about/our-people/comp3/cu3.jpg',
       bio: {
         en: 'Seasoned energy trader with deep expertise in global energy markets.',
         ar: 'متداول طاقة ذو خبرة مع معرفة عميقة بأسواق الطاقة العالمية'
@@ -147,12 +147,38 @@ export class OurPeopleComponent implements OnInit {
       name: { en: 'Elena Rodriguez', ar: 'إيلينا رودريغيز' },
       position: { en: 'Chief Technology Officer', ar: 'مدير التكنولوجيا' },
       department: { en: 'Technology & Innovation', ar: 'التكنولوجيا والابتكار' },
-      image: 'assets/images/our-people/comp3/cu4.jpg',
+      image: 'images/about/our-people/comp3/cu4.jpg',
       bio: {
         en: 'Technology innovator driving digital transformation across all operations.',
         ar: 'مبتكرة في التكنولوجيا تقود التحول الرقمي في جميع العمليات'
       },
       expertise: ['Digital Transformation', 'AI/ML', 'System Architecture'],
+      linkedin: '#'
+    },
+    {
+      id: 5,
+      name: { en: 'Fatima Al Zahra', ar: 'فاطمة الزهراء' },
+      position: { en: 'Chief Financial Officer', ar: 'المدير المالي' },
+      department: { en: 'Finance & Compliance', ar: 'التمويل والامتثال' },
+      image: 'images/about/our-people/comp2/ss1.jpg',
+      bio: {
+        en: 'Financial strategist with expertise in international finance and regulatory compliance.',
+        ar: 'استراتيجية مالية مع خبرة في التمويل الدولي والامتثال التنظيمي'
+      },
+      expertise: ['Financial Strategy', 'Risk Management', 'Compliance'],
+      linkedin: '#'
+    },
+    {
+      id: 6,
+      name: { en: 'David Chen', ar: 'ديفيد تشين' },
+      position: { en: 'Head of Human Resources', ar: 'رئيس الموارد البشرية' },
+      department: { en: 'Human Resources', ar: 'الموارد البشرية' },
+      image: 'images/about/our-people/comp2/ss2.jpg',
+      bio: {
+        en: 'HR leader focused on talent development and organizational culture.',
+        ar: 'قائد الموارد البشرية يركز على تطوير المواهب وثقافة المنظمة'
+      },
+      expertise: ['Talent Management', 'Organizational Development', 'Employee Engagement'],
       linkedin: '#'
     }
   ];

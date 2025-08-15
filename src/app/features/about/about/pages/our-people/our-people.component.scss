@@ -4,14 +4,48 @@
 
 /* Page Header */
 .page-header {
+  position: relative;
   text-align: center;
   margin-bottom: 4rem;
-  padding: 2rem 0;
-}
+  height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 16px;
 
-.header-content {
-  max-width: 800px;
-  margin: 0 auto;
+  .header-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .header-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(0, 27, 63, 0.7), rgba(0, 41, 96, 0.5));
+    }
+  }
+
+  .header-content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    max-width: 800px;
+    margin: 0 auto;
+  }
 }
 
 .header-icon {
@@ -20,10 +54,12 @@
   justify-content: center;
   width: 80px;
   height: 80px;
-  background: linear-gradient(135deg, #001B3F, #002960);
+  background: rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
   border-radius: 50%;
   margin-bottom: 1.5rem;
-  box-shadow: 0 8px 32px rgba(0, 27, 63, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
 
 .header-icon mat-icon {
@@ -36,14 +72,15 @@
 .page-title {
   font-size: clamp(2rem, 4vw, 3rem);
   font-weight: 700;
-  color: #001B3F;
+  color: white;
   margin: 0 0 1rem 0;
   line-height: 1.2;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
 }
 
 .page-subtitle {
   font-size: clamp(1.1rem, 2vw, 1.3rem);
-  color: #64748b;
+  color: rgba(255, 255, 255, 0.9);
   line-height: 1.6;
   margin: 0;
   max-width: 600px;

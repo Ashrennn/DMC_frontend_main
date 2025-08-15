@@ -1,6 +1,10 @@
 <div class="values-container" [class.rtl]="isRTL">
   <!-- Page Header -->
   <header class="page-header">
+    <div class="header-background">
+      <img src="images/about/our-values/Temp BG 2.jpg" alt="Our Values Background" />
+      <div class="header-overlay"></div>
+    </div>
     <div class="header-content">
       <div class="header-icon">
         <mat-icon>favorite</mat-icon>
@@ -18,6 +22,9 @@
 
       <div class="values-grid">
         <div *ngFor="let value of coreValues" class="value-card">
+          <div class="value-image" *ngIf="value.image">
+            <img [src]="value.image" [alt]="getValueName(value)" />
+          </div>
           <div class="value-icon" [style.background-color]="value.color">
             <mat-icon>{{ value.icon }}</mat-icon>
           </div>

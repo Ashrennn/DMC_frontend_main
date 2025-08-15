@@ -9,6 +9,7 @@ interface TimelineEvent {
   description: { en: string; ar: string };
   icon: string;
   category: 'milestone' | 'achievement' | 'expansion' | 'innovation';
+  image?: string;
 }
 
 @Component({
@@ -30,7 +31,8 @@ export class OurHistoryComponent implements OnInit {
         ar: 'تم تأسيس DMCNRG كشركة تجارة طاقة صغيرة في الإمارات، مع التركيز على أسواق الطاقة الإقليمية'
       },
       icon: 'business',
-      category: 'milestone'
+      category: 'milestone',
+      image: 'images/about/our-history/comp2/bg1.jpg'
     },
     {
       year: '2005',
@@ -40,7 +42,8 @@ export class OurHistoryComponent implements OnInit {
         ar: 'توسعنا في الخدمات البحرية، وإنشاء أول عمليات التزود بالوقود في الخليج الفارسي'
       },
       icon: 'local_shipping',
-      category: 'expansion'
+      category: 'expansion',
+      image: 'images/about/our-history/comp2/bg2.jpg'
     },
     {
       year: '2010',
@@ -50,7 +53,8 @@ export class OurHistoryComponent implements OnInit {
         ar: 'أصبحنا المزود الرائد للطاقة والخدمات البحرية في منطقة الشرق الأوسط'
       },
       icon: 'emoji_events',
-      category: 'achievement'
+      category: 'achievement',
+      image: 'images/about/our-history/comp2/bg3.jpg'
     },
     {
       year: '2015',
@@ -60,7 +64,8 @@ export class OurHistoryComponent implements OnInit {
         ar: 'وسعنا العمليات إلى أكثر من 15 دولة في آسيا وأفريقيا وأوروبا'
       },
       icon: 'public',
-      category: 'expansion'
+      category: 'expansion',
+      image: 'images/about/our-history/comp2/bg4.jpg'
     },
     {
       year: '2020',
