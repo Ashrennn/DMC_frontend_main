@@ -1,0 +1,119 @@
+<div class="people-container" [class.rtl]="isRTL">
+  <!-- Page Header -->
+  <header class="page-header">
+    <div class="header-background">
+      <img src="images/about/our-people/comp2/bg2.jpg" alt="Our People Background" onerror="console.log('Image failed to load:', this.src)" onload="console.log('Image loaded successfully:', this.src)" />
+      <div class="header-overlay"></div>
+    </div>
+    <div class="header-content">
+      <div class="header-icon">
+        <mat-icon>people</mat-icon>
+      </div>
+      <h1 class="page-title">{{ getPageTitle() }}</h1>
+      <p class="page-subtitle">{{ getPageSubtitle() }}</p>
+    </div>
+  </header>
+
+  <!-- Team Stats Section -->
+  <section class="stats-section">
+    <div class="stats-container">
+      <h2 class="stats-title">{{ getStatsTitle() }}</h2>
+      <div class="stats-grid">
+        <div class="stat-item">
+          <div class="stat-icon">
+            <mat-icon>group</mat-icon>
+          </div>
+          <div class="stat-content">
+            <span class="stat-number">500+</span>
+            <span class="stat-label">{{ getStatLabel('total') }}</span>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-icon">
+            <mat-icon>business</mat-icon>
+          </div>
+          <div class="stat-content">
+            <span class="stat-number">6</span>
+            <span class="stat-label">{{ getStatLabel('departments') }}</span>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-icon">
+            <mat-icon>public</mat-icon>
+          </div>
+          <div class="stat-content">
+            <span class="stat-number">15+</span>
+            <span class="stat-label">{{ getStatLabel('countries') }}</span>
+          </div>
+        </div>
+
+        <div class="stat-item">
+          <div class="stat-icon">
+            <mat-icon>schedule</mat-icon>
+          </div>
+          <div class="stat-content">
+            <span class="stat-number">12+</span>
+            <span class="stat-label">{{ getStatLabel('experience') }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Departments Section -->
+  <section class="departments-section">
+    <div class="departments-container">
+      <h2 class="section-title">{{ getCultureTitle() }}</h2>
+      <p class="section-subtitle">{{ getCultureSubtitle() }}</p>
+
+      <div class="departments-grid">
+        <div *ngFor="let dept of departments" class="department-card">
+          <div class="department-icon" [style.background-color]="dept.color">
+            <mat-icon>{{ dept.icon }}</mat-icon>
+          </div>
+          <div class="department-content">
+            <h3 class="department-name">{{ getDepartmentName(dept) }}</h3>
+            <p class="department-description">{{ getDepartmentDescription(dept) }}</p>
+            <div class="department-meta">
+              <span class="member-count">{{ dept.memberCount }} {{ isRTL ? 'عضو' : 'Members' }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Leadership Team Section -->
+  <section class="leadership-section">
+    <div class="leadership-container">
+      <h2 class="section-title">{{ isRTL ? 'فريق القيادة' : 'Leadership Team' }}</h2>
+      <p class="section-subtitle">{{ isRTL ? 'تعرف على قادتنا التنفيذيين' : 'Meet our executive leaders' }}</p>
+
+      <div class="leadership-grid">
+        <div *ngFor="let member of teamMembers" class="member-card">
+          <div class="member-image">
+            <img [src]="member.image" [alt]="getMemberName(member)" />
+            <div class="member-overlay">
+              <a *ngIf="member.linkedin" [href]="member.linkedin" target="_blank" class="linkedin-link">
+                <mat-icon>linkedin</mat-icon>
+              </a>
+            </div>
+          </div>
+          <div class="member-content">
+            <h3 class="member-name">{{ getMemberName(member) }}</h3>
+            <p class="member-position">{{ getMemberPosition(member) }}</p>
+            <p class="member-department">{{ getMemberDepartment(member) }}</p>
+            <p class="member-bio">{{ getMemberBio(member) }}</p>
+            <div class="member-expertise">
+              <span *ngFor="let skill of member.expertise" class="expertise-tag">
+                {{ skill }}
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

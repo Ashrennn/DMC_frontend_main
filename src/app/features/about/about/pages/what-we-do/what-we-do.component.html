@@ -1,0 +1,100 @@
+<div class="what-we-do-container" [class.rtl]="isRTL">
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="hero-background">
+      <img src="images/about/what-we-do/comp1/bg1.jpg" alt="What We Do Background" />
+      <div class="hero-overlay"></div>
+    </div>
+    <div class="hero-content">
+      <h1 class="hero-title">{{ getText('title') }}</h1>
+      <p class="hero-subtitle">{{ getText('subtitle') }}</p>
+    </div>
+  </section>
+
+  <!-- Core Services Section -->
+  <section class="services-section">
+    <div class="container">
+      <h2 class="section-title">{{ getText('coreServices') }}</h2>
+      <div class="services-grid">
+        <div class="service-card" *ngFor="let service of coreServices; let i = index">
+          <div class="service-image" *ngIf="service.image">
+            <img [src]="service.image" [alt]="service.title" />
+          </div>
+          <div class="service-icon">
+            <mat-icon>{{ service.icon }}</mat-icon>
+          </div>
+          <h3 class="service-title">{{ service.title }}</h3>
+          <p class="service-description">{{ service.description }}</p>
+          <ul class="service-features">
+            <li *ngFor="let feature of service.features">{{ feature }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Business Areas Section -->
+  <section class="business-areas-section">
+    <div class="container">
+      <h2 class="section-title">{{ getText('businessAreas') }}</h2>
+      <div class="areas-grid">
+        <div class="area-card" *ngFor="let area of businessAreas; let i = index">
+          <div class="area-image" *ngIf="area.image">
+            <img [src]="area.image" [alt]="area.title" />
+          </div>
+          <div class="area-header">
+            <mat-icon class="area-icon">{{ area.icon }}</mat-icon>
+            <h3 class="area-title">{{ area.title }}</h3>
+          </div>
+          <p class="area-description">{{ area.description }}</p>
+          <div class="area-stats">
+            <div class="stat" *ngFor="let stat of area.stats">
+              <span class="stat-number">{{ stat.value }}</span>
+              <span class="stat-label">{{ stat.label }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities Section -->
+  <section class="capabilities-section">
+    <div class="container">
+      <h2 class="section-title">{{ getText('capabilities') }}</h2>
+      <div class="capabilities-list">
+        <mat-expansion-panel *ngFor="let capability of capabilities" class="capability-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title>
+              <mat-icon class="capability-icon">{{ capability.icon }}</mat-icon>
+              {{ capability.title }}
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <div class="capability-content">
+            <p>{{ capability.description }}</p>
+            <div class="capability-details">
+              <div class="detail-item" *ngFor="let detail of capability.details">
+                <strong>{{ detail.label }}:</strong> {{ detail.value }}
+              </div>
+            </div>
+          </div>
+        </mat-expansion-panel>
+      </div>
+    </div>
+  </section>
+
+  <!-- Global Presence Section -->
+  <section class="global-presence-section">
+    <div class="container">
+      <h2 class="section-title">{{ getText('globalPresence') }}</h2>
+      <div class="presence-stats">
+        <div class="presence-stat" *ngFor="let stat of globalStats">
+          <div class="stat-circle">
+            <span class="stat-number">{{ stat.value }}</span>
+          </div>
+          <p class="stat-description">{{ stat.description }}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
