@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { RouterModule, Router, NavigationEnd } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { LanguageService } from '../../../shared/services/language.service';
+import { ResponsiveService } from '../../../shared/services/responsiveness';
+import { NavigationComponent } from '../../home/home/navigation/navigation.component';
+import { FooterBarComponent } from '../../home/home/navigation/footer-bar/footer-bar.component';
 import { filter } from 'rxjs/operators';
 
 interface PageContent {
@@ -15,7 +18,7 @@ interface PageContent {
 @Component({
   selector: 'dmc-library',
   standalone: true,
-  imports: [CommonModule, RouterModule, MatIconModule],
+  imports: [CommonModule, RouterModule, MatIconModule, NavigationComponent, FooterBarComponent],
   templateUrl: './library.component.html',
   styleUrls: ['./library.component.scss']
 })
@@ -25,7 +28,8 @@ export class LibraryComponent implements OnInit {
 
   constructor(
     private languageService: LanguageService,
-    private router: Router
+    private router: Router,
+    public responsiveService: ResponsiveService
   ) {}
 
   ngOnInit() {
@@ -104,5 +108,15 @@ export class LibraryComponent implements OnInit {
 
   getPageSubtitle(): string {
     return this.getCurrentPageContent().subtitle;
+  }
+
+  get childData() {
+    return {
+      breakpoint: this.responsiveService.getCurrentBreakpoint(),
+      screenSize: this.responsiveService.getScreenSize(),
+      isMobile: this.responsiveService.isMobile(),
+      isTablet: this.responsiveService.isTablet(),
+      isDesktop: this.responsiveService.isDesktop()
+    };
   }
 }
